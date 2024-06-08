@@ -11,7 +11,7 @@ class DashboardController extends BaseController
     {
         $db = db_connect();
 
-        $membership = $db->table('memberships')->join('paket', 'memberships.id_paket = paket.id_paket')->orderBy('memberships.created_at', 'desc')->get();
+        $membership = $db->table('memberships')->join('paket', 'memberships.id_paket = paket.id_paket')->orderBy('memberships.created_at', 'desc')->limit(5)->get();
 
         return view('dashboard/index', [
             'total_user' => $db->table('users')->countAll(),
