@@ -111,14 +111,14 @@
                                             <label for="no_telp" class="d-block">Nomor Telepon</label>
                                             <input id="no_telp" type="number" class="form-control" name="no_telp" value="<?= old('no_telp') ?>">
                                             <div class="invalid-feedback">
-                                                Nomor telepon harus diisi.
+                                                Nomor telepon minimal 10 digit.
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="no_ktp">Nomor KTP</label>
-                                            <input id="no_ktp" type="number" class="form-control" name="no_ktp" value="<?= old('no_ktp') ?>">
+                                            <input id="no_ktp" type="number" class="form-control" name="no_ktp" minlength="16" value="<?= old('no_ktp') ?>">
                                             <div class="invalid-feedback">
-                                                Nomor KTP harus diisi.
+                                                Nomor KTP minimal 16 digit.
                                             </div>
                                         </div>
                                     </div>

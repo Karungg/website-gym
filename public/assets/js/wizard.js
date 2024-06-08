@@ -18,6 +18,12 @@ function validate(button) {
         if ($(".wizard-pane textarea").val() == "") {
           $(".wizard-pane textarea").addClass("is-invalid");
         }
+        if ($(".wizard-pane #no_telp").val().length < 10) {
+          $(".wizard-pane #no_telp").addClass("is-invalid");
+        }
+        if ($(".wizard-pane #no_ktp").val().length < 16) {
+          $(".wizard-pane #no_ktp").addClass("is-invalid");
+        }
       }
     });
   if (valid == true) {
