@@ -26,7 +26,7 @@
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <div class="navbar-bg"></div>
+            <div class="navbar-bg bg-dark"></div>
 
             <?= $this->include('partials/navbar'); ?>
 
