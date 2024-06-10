@@ -7,23 +7,30 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class MembershipController extends BaseController
 {
-    protected $membershipModel;
+    protected $membership;
 
     public function __construct()
     {
-        $this->membershipModel = new \App\Models\Membership();
+        $this->membership = new \App\Models\Membership();
     }
 
     public function index()
     {
         return view('memberships/index', [
-            'memberships' => $this->membershipModel->findAll()
+            'memberships' => $this->membership->findAll()
+        ]);
+    }
+
+    public function show($id)
+    {
+            return view('memberships/show', [
+            'membership' => $this->membership->find($id)
         ]);
     }
 
     public function edit($id)
     {
-        $package = $this->membershipModel->find($id);
+        $package = $this->membership->find($id);
 
         return view('memberships/edit', [
             'package' => $package
@@ -66,7 +73,7 @@ class MembershipController extends BaseController
                 'validation' => $this->validator
             ]);
         } else {
-            $this->membershipModel->update($this->request->getPost('id_paket'), [
+            $this->membership->update($this->request->getPost('id_paket'), [
                 'nama_paket' => $this->request->getPost('nama_paket'),
                 'deskripsi' => $this->request->getPost('deskripsi'),
                 'durasi' => $this->request->getPost('durasi'),
@@ -81,7 +88,7 @@ class MembershipController extends BaseController
 
     public function destroy($id)
     {
-        $this->membershipModel->delete($id);
+        $this->membership->delete($id);
 
         session()->setFlashdata('success', 'Data paket berhasil dihapus.');
 

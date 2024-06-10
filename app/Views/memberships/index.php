@@ -68,9 +68,9 @@ Membership
                                             <?= $membership['tgl_lahir'] ?>
                                         </td>
                                         <td class="text-center">
-                                            <a href="<?= base_url('admin/memberships/' . $membership['id_paket']) ?>" class="btn btn-primary">Detail</a>
-                                            <a href="<?= base_url('admin/memberships/' . $membership['id_paket']) ?>/edit" class="btn btn-success">Ubah</a>
-                                            <form action="<?= base_url('admin/memberships/delete/' . $membership['id_paket']) ?>" method="post" onsubmit="return confirm('Hapus' + ' <?= $membership['nama_lengkap'] ?>?');" style="display: inline;">
+                                            <a href="<?= base_url('admin/memberships/' . $membership['id_membership']) ?>" class="btn btn-primary">Detail</a>
+                                            <a href="<?= base_url('admin/memberships/' . $membership['id_membership']) ?>/edit" class="btn btn-success">Ubah</a>
+                                            <form action="<?= base_url('admin/memberships/delete/' . $membership['id_membership']) ?>" method="post" onsubmit="return confirm('Hapus' + ' <?= $membership['nama_lengkap'] ?>?');" style="display: inline;">
                                                 <?= csrf_field() ?>
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <button type="submit" class="btn btn-danger">Hapus</a>

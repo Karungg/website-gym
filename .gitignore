@@ -92,6 +92,16 @@ vendor/
 public/stisla
 
 #-------------------------
+# Foto
+#-------------------------
+public/assets/img/ktp
+
+#-------------------------
+# Foto KTP
+#-------------------------
+public/assets/img/foto
+
+#-------------------------
 # IDE / Development Files
 #-------------------------
 
