@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Package;
 use CodeIgniter\HTTP\ResponseInterface;
+use Dompdf\Dompdf;
 
 class PackageController extends BaseController
 {
@@ -140,5 +141,17 @@ class PackageController extends BaseController
         session()->setFlashdata('success', 'Data paket berhasil dihapus.');
 
         return redirect()->to(base_url('admin/packages'));
+    }
+
+    public function exportPdf()
+    {
+        $filename = date('y-m-d') . '-paket';
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('packages/export_pdf', [
+            'packages' => $this->package->findAll()
+        ]));
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream($filename);
     }
 }
