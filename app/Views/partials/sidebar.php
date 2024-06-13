@@ -21,6 +21,10 @@
             <li class="nav-item <?= str_contains(uri_string(), 'admin/memberships') ? 'active' : '' ?>">
                 <a href="<?= base_url('admin/memberships') ?>" class="nav-link"><i class="fas fa-users"></i><span>Membership</span></a>
             </li>
+            <li class="menu-header">Transaksi</li>
+            <li class="nav-item <?= str_contains(uri_string(), 'admin/payments') ? 'active' : '' ?>">
+                <a href="<?= base_url('admin/payments') ?>" class="nav-link"><i class="fas fa-shopping-bag"></i><span>Pembayaran</span></a>
+            </li>
             <li class="nav-item">
                 <a href="<?= base_url('logout') ?>" onclick="return confirm('Logout?')" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
             </li>

@@ -1,11 +1,11 @@
 <?= $this->extend('layouts/appLayout'); ?>
 
 <?= $this->section('title'); ?>
-Membership
+Pembayaran
 <?= $this->endSection(); ?>
 
 <?= $this->section('header'); ?>
-Membership
+Pembayaran
 <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
@@ -25,9 +25,10 @@ Membership
             <div class="card">
                 <div class="d-flex card-header">
                     <div class="mr-auto">
-                        <a href="<?= base_url('admin/memberships/export-pdf') ?>" class="btn btn-icon icon-left btn-danger mr-2"><i class="far fa-file"></i> Pdf</a>
-                        <a href="<?= base_url('admin/memberships/export-excel') ?>" class="btn btn-icon icon-left btn-success"><i class="far fa-file"></i> Excel</a>
+                        <a href="<?= base_url('admin/payments/export-pdf') ?>" class="btn btn-icon icon-left btn-danger mr-2"><i class="far fa-file"></i> Pdf</a>
+                        <a href="<?= base_url('admin/payments/export-excel') ?>" class="btn btn-icon icon-left btn-success"><i class="far fa-file"></i> Excel</a>
                     </div>
+                    <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="fas fa-plus"></i> Tambah Data Pembayaran</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -38,59 +39,68 @@ Membership
                                         No
                                     </th>
                                     <th>Nama Lengkap</th>
-                                    <th>Email</th>
-                                    <th>Nomor Telepon</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Tanggal Lahir</th>
-                                    <th>Paket</th>
-                                    <th>Status</th>
+                                    <th>Nama Paket</th>
+                                    <th>Tanggal Bayar</th>
+                                    <th>Metode Pembayaran</th>
+                                    <th>Keterangan</th>
+                                    <th>Total</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $no = 1;
-                                foreach ($memberships as $membership) :
+                                foreach ($payments as $payment) :
                                 ?>
                                     <tr>
                                         <td class="text-center">
-                                            <?= $no ?>
+                                            <?= $no++ ?>
                                         </td>
-                                        <td><?= $membership['nama_lengkap'] ?></td>
+                                        <td><?= $payment['nama_lengkap'] ?></td>
                                         <td>
-                                            <?= $membership['email'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $membership['no_telp'] ?>
+                                            <?= $payment['nama_paket'] ?>
                                         </td>
                                         <td>
-                                            <?= $membership['jenis_kelamin'] ?>
+                                            <?= $payment['tgl_bayar'] ?>
                                         </td>
                                         <td>
-                                            <?= $membership['tgl_lahir'] ?>
+                                            <?= $payment['metode_pembayaran'] ?>
                                         </td>
                                         <td>
-                                            <?= $membership['id_paket'] ?>
+                                            <?= $payment['keterangan'] ?>
                                         </td>
                                         <td>
-                                            <?= $membership['status'] ?>
+                                            <?= $payment['total'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $payment['status'] ?>
                                         </td>
                                         <td class="text-center">
                                             <a href="<?= base_url('admin/memberships/' . $membership['id_membership']) ?>" class="btn btn-primary">Detail</a>
-                                            <a href="<?= base_url('admin/memberships/' . $membership['id_membership']) ?>/edit" class="btn btn-success">Ubah</a>
-                                            <form action="<?= base_url('admin/memberships/delete/' . $membership['id_membership']) ?>" method="post" onsubmit="return confirm('Hapus' + ' <?= $membership['nama_lengkap'] ?>?');" style="display: inline;">
-                                                <?= csrf_field() ?>
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="btn btn-danger">Hapus</a>
-                                            </form>
                                         </td>
                                     </tr>
-                                <?php
-                                    $no++;
-                                endforeach;
-                                ?>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
+                        <div class="modal fade" tabindex="-1" role="dialog" id="createModal">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Modal body text goes here.</p>
+                                    </div>
+                                    <div class="modal-footer bg-whitesmoke br">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

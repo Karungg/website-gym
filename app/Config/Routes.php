@@ -40,4 +40,14 @@ $routes->group('admin', ['filter' => 'role:admin'], static function ($routes) {
         $routes->get('export-pdf', 'UserController::exportPdf');
         $routes->get('export-excel', 'UserController::exportExcel');
     });
+
+    // Route payments
+    $routes->group('payments', static function ($routes) {
+        $routes->get('', 'PaymentController::index');
+        $routes->get('(:num)', 'PaymentController::show/$1');
+        $routes->get('create', 'PaymentController::create');
+        $routes->post('create', 'PaymentController::store');
+        $routes->get('export-pdf', 'PaymentController::exportPdf');
+        $routes->get('export-excel', 'PaymentController::exportExcel');
+    });
 });
