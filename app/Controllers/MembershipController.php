@@ -9,6 +9,8 @@ class MembershipController extends BaseController
 {
     protected $membership;
 
+    protected $helpers = ['form', 'text'];
+
     public function __construct()
     {
         $this->membership = new \App\Models\Membership();
@@ -23,74 +25,110 @@ class MembershipController extends BaseController
 
     public function show($id)
     {
-            return view('memberships/show', [
+        return view('memberships/show', [
             'membership' => $this->membership->find($id)
         ]);
     }
 
     public function edit($id)
     {
-        $package = $this->membership->find($id);
+        $membership = $this->membership->find($id);
 
         return view('memberships/edit', [
-            'package' => $package
+            'membership' => $membership
         ]);
     }
 
     public function update()
     {
-        helper(['form', 'url']);
+        if (!$this->request->is('put')) {
+            return redirect()->to(site_url('admin/memberships'));
+        }
 
-        $validation = $this->validate([
-            'nama_paket' => [
+        if (!$this->validate([
+            'nama_lengkap' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kolom Nama Paket harus diisi'
+                    'required' => 'Kolom Nama Lengkap harus diisi.',
                 ]
             ],
-            'deskripsi' => [
+            'email' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kolom Deskripsi harus diisi'
+                    'required' => 'Kolom Email harus diisi.'
                 ]
             ],
-            'durasi' => [
-                'rules' => 'required',
+            'no_telp' => [
+                'rules' => 'required|numeric',
                 'errors' => [
-                    'required' => 'Kolom Durasi harus diisi'
+                    'required' => 'Kolom Nomor Telepon harus diisi.',
+                    'numeric' => 'Kolom Nomor Telepon hanya boleh diisi angka.'
                 ]
             ],
-            'harga' => [
+            'jenis_kelamin' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Kolom Harga harus diisi'
+                    'required' => 'Kolom Jenis Kelamin harus diisi.',
                 ]
-            ]
+            ],
+            'tgl_lahir' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Tanggal Lahir harus diisi.',
+                ]
+            ],
+            'no_ktp' => [
+                'rules' => 'required|numeric',
+                'errors' => [
+                    'required' => 'Kolom Nomor KTP harus diisi.',
+                    'numeric' => 'Kolom Nomor KTP hanya boleh diisi angka.',
+                ]
+            ],
+            'alamat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Alamat harus diisi.',
+                ]
+            ],
+            'foto_diri' => [
+                'rules' => 'uploaded[foto_diri]|mime_in[foto_diri,image/jpg,image/jpeg,image/png]|max_size[foto_diri,4096]'
+            ],
+            'foto_ktp' => [
+                'rules' => 'uploaded[foto_ktp]|mime_in[foto_ktp,image/jpg,image/jpeg,image/png]|max_size[foto_ktp,4096]'
+            ],
+        ])) {
+            return redirect()->back()->withInput();
+        }
+
+        $data = $this->membership->find($this->request->getPost('id_membership'));
+        @unlink('../public/assets/img/foto/' . $data['foto_diri']);
+        @unlink('../public/assets/img/ktp/' . $data['foto_ktp']);
+
+        $foto_diri = $this->request->getFile('foto_diri');
+        $foto_ktp = $this->request->getFile('foto_ktp');
+        $foto_diri->move(WRITEPATH . '../public/assets/img/foto/');
+        $foto_ktp->move(WRITEPATH . '../public/assets/img/ktp/');
+
+        $this->membership->update(['id_membership' => $this->request->getPost('id_membership')], [
+            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+            'email' => $this->request->getPost('email'),
+            'no_telp' => $this->request->getPost('no_telp'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'tgl_lahir' => $this->request->getPost('tgl_lahir'),
+            'no_ktp' => $this->request->getPost('no_ktp'),
+            'alamat' => $this->request->getPost('alamat'),
+            'foto_diri' => $foto_diri->getName(),
+            'foto_ktp' => $foto_ktp->getName(),
         ]);
 
-        if (!$validation) {
-            return view('memberships/create', [
-                'validation' => $this->validator
-            ]);
-        } else {
-            $this->membership->update($this->request->getPost('id_paket'), [
-                'nama_paket' => $this->request->getPost('nama_paket'),
-                'deskripsi' => $this->request->getPost('deskripsi'),
-                'durasi' => $this->request->getPost('durasi'),
-                'harga' => $this->request->getPost('harga'),
-            ]);
-
-            session()->setFlashdata('success', 'Ubah data paket berhasil.');
-
-            return redirect()->to(base_url('admin/memberships'));
-        }
+        return redirect()->to(site_url('admin/memberships'))->with('success', 'Ubah data membership berhasil.');
     }
 
     public function destroy($id)
     {
         $this->membership->delete($id);
 
-        session()->setFlashdata('success', 'Data paket berhasil dihapus.');
+        session()->setFlashdata('success', 'Data membership berhasil dihapus.');
 
         return redirect()->to(base_url('admin/memberships'));
     }

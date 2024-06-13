@@ -14,56 +14,68 @@ Detail Membership
         <div class="col-12">
             <div class="card">
                 <div class="d-flex justify-content-end card-header">
-                    <a href="<?= base_url('admin/membership') ?>" class="btn btn-icon icon-left btn-primary"><i class="fas fa-arrow-left"></i> Kembali</a>
+                    <a href="<?= base_url('admin/memberships') ?>" class="btn btn-icon icon-left btn-primary"><i class="fas fa-arrow-left"></i> Kembali</a>
                 </div>
-                <div class="card-body">
+                <div class="section-body">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 col-md-6 col-lg-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Paket</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <input type="text" name="nama_paket" class="form-control <?= (isset($errors['nama_paket'])) ? 'is-invalid' : '' ?>" value="<?= old('nama_paket') ?>">
-                                            <div class="invalid-feedback">
-                                                <?= validation_show_error('nama_paket') ?>
+                                    <div class="form-group">
+                                        <label>Nama Lengkap</label>
+                                        <input class="form-control" value="<?= $membership['nama_lengkap'] ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nomor Telepon</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
                                             </div>
+                                            <input class="form-control phone-number" value="<?= $membership['no_telp'] ?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Durasi</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <input type="number" name="durasi" class="form-control <?= (isset($errors['durasi'])) ? 'is-invalid' : '' ?>" value="<?= old('durasi') ?>">
-                                            <div class="invalid-feedback">
-                                                <?= validation_show_error('durasi') ?>
-                                            </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label>Tanggal Lahir</label>
+                                            <input class="form-control" value="<?= $membership['tgl_lahir'] ?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Harga</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <input type="number" name="harga" class="form-control <?= (isset($errors['harga'])) ? 'is-invalid' : '' ?>" value="<?= old('harga') ?>">
-                                            <div class="invalid-feedback">
-                                                <?= validation_show_error('harga') ?>
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label>Alamat</label>
+                                        <input class="form-control" value="<?= $membership['alamat'] ?>" readonly>
                                     </div>
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <textarea name="deskripsi" class="form-control summernote <?= (isset($errors['deskripsi'])) ? 'is-invalid' : '' ?>"><?= old('deskripsi') ?></textarea>
-                                            <div class="invalid-feedback">
-                                                <?= validation_show_error('deskripsi') ?>
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label>Foto Diri</label>
+                                        <img src="<?= base_url('assets/img/foto/' . $membership['foto_diri']) ?>" alt="foto-diri" class="d-block img-thumbnail">
                                     </div>
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <button class="btn btn-primary">Tambah</button>
-                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input class="form-control" value="<?= $membership['email'] ?>" readonly>
                                     </div>
-                                    <?= form_close() ?>
+                                    <div class="form-group">
+                                        <label>Jenis Kelamin</label>
+                                        <input class="form-control" value="<?= $membership['jenis_kelamin'] ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nomor KTP</label>
+                                        <input class="form-control" value="<?= $membership['no_ktp'] ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nama Paket</label>
+                                        <input class="form-control" value="<?= $membership['id_paket'] ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Foto KTP</label>
+                                        <img src="<?= base_url('assets/img/foto/' . $membership['foto_ktp']) ?>" alt="foto-diri" class="d-block img-thumbnail">
+                                    </div>
                                 </div>
                             </div>
                         </div>

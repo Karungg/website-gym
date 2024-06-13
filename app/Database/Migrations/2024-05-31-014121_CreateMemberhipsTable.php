@@ -49,6 +49,10 @@ class CreateMemberhipsTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
+            'status' => [
+                'type' => 'VARCHAR',
+                'constraint' => '20'
+            ],
             'id_paket' => [
                 'type' => 'INT',
                 'constraint' => '11',
