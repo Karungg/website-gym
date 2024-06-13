@@ -70,7 +70,7 @@ Membership
                                             <?= $membership['tgl_lahir'] ?>
                                         </td>
                                         <td>
-                                            <?= $membership['id_paket'] ?>
+                                            <?= $membership['nama_paket'] ?>
                                         </td>
                                         <td>
                                             <?= $membership['status'] ?>

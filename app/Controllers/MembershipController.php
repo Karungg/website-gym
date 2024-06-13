@@ -21,15 +21,24 @@ class MembershipController extends BaseController
 
     public function index()
     {
+        $db = \Config\Database::connect();
+        $memberships = $db->table('memberships')
+            ->select('*')->join('paket', 'memberships.id_paket = paket.id_paket')
+            ->get()->getResultArray();
         return view('memberships/index', [
-            'memberships' => $this->membership->findAll()
+            'memberships' => $memberships
         ]);
     }
 
     public function show($id)
     {
+        $db = \Config\Database::connect();
+        $membership = $db->table('memberships')
+            ->select('*')->join('paket', 'memberships.id_paket = paket.id_paket')
+            ->where('memberships.id_membership', $id)
+            ->get()->getResultArray();
         return view('memberships/show', [
-            'membership' => $this->membership->find($id)
+            'membership' => $membership
         ]);
     }
 
