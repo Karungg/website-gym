@@ -12,6 +12,9 @@
                 <a href="<?= base_url('admin') ?>" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Master Data</li>
+            <li class="nav-item <?= str_contains(uri_string(), 'admin/users') ? 'active' : '' ?>">
+                <a href="<?= base_url('admin/users') ?>" class="nav-link"><i class="fas fa-users"></i><span>User</span></a>
+            </li>
             <li class="nav-item <?= str_contains(uri_string(), 'admin/packages') ? 'active' : '' ?>">
                 <a href="<?= base_url('admin/packages') ?>" class="nav-link"><i class="fas fa-tag"></i><span>Paket</span></a>
             </li>

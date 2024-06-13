@@ -33,4 +33,11 @@ $routes->group('admin', ['filter' => 'role:admin'], static function ($routes) {
         $routes->get('export-pdf', 'MembershipController::exportPdf');
         $routes->get('export-excel', 'MembershipController::exportExcel');
     });
+
+    // Route users
+    $routes->group('users', static function ($routes) {
+        $routes->get('', 'UserController::index');
+        $routes->get('export-pdf', 'UserController::exportPdf');
+        $routes->get('export-excel', 'UserController::exportExcel');
+    });
 });
