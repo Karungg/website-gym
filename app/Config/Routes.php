@@ -20,6 +20,7 @@ $routes->group('admin', ['filter' => 'role:admin'], static function ($routes) {
         $routes->put('(:num)/edit', 'PackageController::update');
         $routes->delete('delete/(:num)', 'PackageController::destroy/$1');
         $routes->get('export-pdf', 'PackageController::exportPdf');
+        $routes->get('export-excel', 'PackageController::exportExcel');
     });
 
     // Route memberships

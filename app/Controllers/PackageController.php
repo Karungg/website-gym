@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\Package;
 use CodeIgniter\HTTP\ResponseInterface;
 use Dompdf\Dompdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 class PackageController extends BaseController
 {
@@ -153,5 +155,35 @@ class PackageController extends BaseController
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $dompdf->stream($filename);
+    }
+
+    public function exportExcel()
+    {
+        $packages = $this->package->findAll();
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Nama Paket')
+            ->setCellValue('B1', 'Deskripsi')
+            ->setCellValue('C1', 'Durasi')
+            ->setCellValue('D1', 'Harga');
+
+        $column = 2;
+        foreach ($packages as $data) {
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $column, $data['nama_paket'])
+                ->setCellValue('B' . $column, $data['deskripsi'])
+                ->setCellValue('C' . $column, $data['durasi'])
+                ->setCellValue('D' . $column, $data['harga']);
+            $column++;
+        }
+        $writer = new Xls($spreadsheet);
+        $fileName = date('d-m-y') . '-paket';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
     }
 }

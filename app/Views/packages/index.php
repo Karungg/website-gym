@@ -26,7 +26,7 @@ Paket
                 <div class="d-flex card-header">
                     <div class="mr-auto">
                         <a href="<?= base_url('admin/packages/export-pdf') ?>" class="btn btn-icon icon-left btn-danger mr-2"><i class="far fa-file"></i> Pdf</a>
-                        <button class="btn btn-icon icon-left btn-success"><i class="far fa-file"></i> Excel</btn>
+                        <a href="<?= base_url('admin/packages/export-excel') ?>" class="btn btn-icon icon-left btn-success"><i class="far fa-file"></i> Excel</a>
                     </div>
                     <a href="<?= base_url('admin/packages/create') ?>" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Tambah Data Paket</a>
                 </div>
