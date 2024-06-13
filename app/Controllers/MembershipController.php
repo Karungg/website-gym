@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use Dompdf\Dompdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 class MembershipController extends BaseController
 {
@@ -131,5 +134,57 @@ class MembershipController extends BaseController
         session()->setFlashdata('success', 'Data membership berhasil dihapus.');
 
         return redirect()->to(base_url('admin/memberships'));
+    }
+
+    public function exportPdf()
+    {
+        $filename = date('y-m-d') . '-membership';
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('memberships/export_pdf', [
+            'memberships' => $this->membership->findAll()
+        ]));
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream($filename);
+    }
+
+    public function exportExcel()
+    {
+        $memberships = $this->membership->findAll();
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Nama Lengkap')
+            ->setCellValue('B1', 'Email')
+            ->setCellValue('C1', 'Nomor Telepon')
+            ->setCellValue('D1', 'Jenis Kelamin')
+            ->setCellValue('E1', 'Tanggal Lahir')
+            ->setCellValue('F1', 'Nomor KTP')
+            ->setCellValue('G1', 'Alamat')
+            ->setCellValue('H1', 'Status')
+            ->setCellValue('I1', 'Nama Paket');
+
+        $column = 2;
+        foreach ($memberships as $data) {
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $column, $data['nama_lengkap'])
+                ->setCellValue('B' . $column, $data['email'])
+                ->setCellValue('C' . $column, $data['no_telp'])
+                ->setCellValue('D' . $column, $data['jenis_kelamin'])
+                ->setCellValue('E' . $column, $data['tgl_lahir'])
+                ->setCellValue('F' . $column, $data['no_ktp'])
+                ->setCellValue('G' . $column, $data['alamat'])
+                ->setCellValue('H' . $column, $data['status'])
+                ->setCellValue('I' . $column, $data['id_paket']);
+            $column++;
+        }
+        $writer = new Xls($spreadsheet);
+        $fileName = date('d-m-y') . '-membership';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
     }
 }

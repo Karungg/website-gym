@@ -25,8 +25,8 @@ Membership
             <div class="card">
                 <div class="d-flex card-header">
                     <div class="mr-auto">
-                        <button class="btn btn-icon icon-left btn-danger mr-2"><i class="far fa-file"></i> Pdf</btn>
-                            <button class="btn btn-icon icon-left btn-success"><i class="far fa-file"></i> Excel</btn>
+                        <a href="<?= base_url('admin/memberships/export-pdf') ?>" class="btn btn-icon icon-left btn-danger mr-2"><i class="far fa-file"></i> Pdf</a>
+                        <a href="<?= base_url('admin/memberships/export-excel') ?>" class="btn btn-icon icon-left btn-success"><i class="far fa-file"></i> Excel</a>
                     </div>
                 </div>
                 <div class="card-body">
