@@ -80,6 +80,11 @@ Detail Membership
                                         <label>Foto KTP</label>
                                         <img src="<?= base_url('assets/img/foto/' . $membership[0]['foto_ktp']) ?>" alt="foto-diri" class="d-block img-thumbnail">
                                     </div>
+                                    <?php if ($membership[0]['status'] == 'pending') : ?>
+                                        <div class="d-flex form-group justify-content-end">
+                                            <a href="<?= base_url('admin/payments/create/' . $membership[0]['id_membership']) ?>" class="btn btn-primary">Bayar</a>
+                                        </div>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </div>

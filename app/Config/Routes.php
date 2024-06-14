@@ -45,7 +45,7 @@ $routes->group('admin', ['filter' => 'role:admin'], static function ($routes) {
     $routes->group('payments', static function ($routes) {
         $routes->get('', 'PaymentController::index');
         $routes->get('(:num)', 'PaymentController::show/$1');
-        $routes->get('create', 'PaymentController::create');
+        $routes->get('create/(:num)', 'PaymentController::create/$1');
         $routes->post('create', 'PaymentController::store');
         $routes->get('export-pdf', 'PaymentController::exportPdf');
         $routes->get('export-excel', 'PaymentController::exportExcel');

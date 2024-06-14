@@ -28,7 +28,6 @@ Pembayaran
                         <a href="<?= base_url('admin/payments/export-pdf') ?>" class="btn btn-icon icon-left btn-danger mr-2"><i class="far fa-file"></i> Pdf</a>
                         <a href="<?= base_url('admin/payments/export-excel') ?>" class="btn btn-icon icon-left btn-success"><i class="far fa-file"></i> Excel</a>
                     </div>
-                    <button class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Tambah Data Pembayaran</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -44,7 +43,6 @@ Pembayaran
                                     <th>Metode Pembayaran</th>
                                     <th>Keterangan</th>
                                     <th>Total</th>
-                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,13 +68,7 @@ Pembayaran
                                             <?= $payment['keterangan'] ?>
                                         </td>
                                         <td>
-                                            <?= $payment['total'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $payment['status'] ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="<?= base_url('admin/memberships/' . $membership['id_membership']) ?>" class="btn btn-primary">Detail</a>
+                                            <?= number_format($payment['total'])  ?>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>

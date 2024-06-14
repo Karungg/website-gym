@@ -22,15 +22,14 @@ Tambah Pembayaran
                             <div class="card">
                                 <div class="card-body">
                                     <?php $errors = validation_errors()  ?>
-                                    <?= form_open('admin/payments') ?>
+                                    <?= form_open('admin/payments/create/') ?>
                                     <?= csrf_field() ?>
+                                    <?= form_hidden('id_membership', $membership[0]['id_membership']) ?>
                                     <div class="form-group">
                                         <label>Membership</label>
-                                        <select class="form-control select">
-                                            <?php foreach ($memberships as $membership) : ?>
-                                                <option value="<?= $membership['id_membership'] ?>"><?= $membership['id_membership'] ?> - <?= $membership['nama_lengkap'] ?></option>
-                                            <?php endforeach ?>
-                                        </select>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" value="<?= $membership[0]['nama_lengkap'] ?>" readonly>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Keterangan</label>
@@ -42,7 +41,7 @@ Tambah Pembayaran
                                     <div class="form-group">
                                         <label>Total</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" value="<?= $membership['harga'] ?>" readonly>
+                                            <input type="text" name="total" class="form-control" value="<?= number_format($membership[0]['harga']) ?>" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -54,19 +53,23 @@ Tambah Pembayaran
                                     <div class="form-group">
                                         <label>Tanggal Bayar</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" value="<?= date('d-m-y') ?>" readonly>
+                                            <input type="text" name="tgl_bayar" class="form-control" value="<?= date('d-m-y') ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Metode Pembayaran</label>
                                         <div class="input-group">
-                                            <input type="text" name="metode_pembayaran" class="form-control phone-number <?= (isset($errors['metode_pembayaran'])) ? 'is-invalid' : '' ?>" value="<?= old('metode_pembayaran') ?>">
+                                            <input type="text" name="metode_pembayaran" class="form-control <?= (isset($errors['metode_pembayaran'])) ? 'is-invalid' : '' ?>" value="<?= old('metode_pembayaran') ?>">
                                             <div class="invalid-feedback">
                                                 <?= validation_show_error('metode_pembayaran') ?>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="d-flex form-group justify-content-end">
+                                        <button type="submit" class="btn btn-primary">Submit</a>
+                                    </div>
                                 </div>
+                                <?= form_close() ?>
                             </div>
                         </div>
                     </div>

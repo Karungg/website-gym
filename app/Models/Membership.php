@@ -14,7 +14,7 @@ class Membership extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nama_lengkap', 'email', 'no_telp', 'jenis_kelamin', 'tgl_lahir', 'no_ktp',
-        'alamat', 'foto_diri', 'foto_ktp', 'id_paket', 'id_user'
+        'alamat', 'foto_diri', 'foto_ktp', 'id_paket', 'id_user', 'status'
     ];
 
     protected bool $allowEmptyInserts = false;
