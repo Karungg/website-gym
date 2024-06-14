@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('my-membership', 'Home::membership');
 
 $routes->group('admin', ['filter' => 'role:admin'], static function ($routes) {
     // Route Dashboard
