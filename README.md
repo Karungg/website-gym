@@ -7,12 +7,12 @@
 ## Screenshot
 
 ### Halaman Pendaftaran Membership
-![Screenshot 1](https://github.com/Karungg/website-gym/blob/main/assets/img/docs/customer-8.png)
+![Screenshot 1](https://github.com/Karungg/website-gym/blob/main/public/assets/img/docs/customer-8.png)
 
 ### Dashboard Admin
-![Screenshot 2](https://github.com/Karungg/website-gym/blob/main/assets/img/docs/dashboard-1.png)
+![Screenshot 2](https://github.com/Karungg/website-gym/blob/main/public/assets/img/docs/dashboard-1.png)
 
-> **Lihat screenshot lengkap di folder <a href="https://github.com/Karungg/website-gym/blob/main/assets/img/docs">klik disini</a>**
+> **Lihat screenshot lengkap di folder <a href="https://github.com/Karungg/website-gym/blob/main/public/assets/img/docs">klik disini</a>**
 
 ## Tech Stack
 
