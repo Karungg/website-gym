@@ -57,7 +57,7 @@
 
                                 $packageModel = new App\Models\Package();
                                 $packages = $packageModel->findAll();
-
+                                helper("form");
                                 ?>
                                 <?= form_open_multipart('register', ['class' => 'wizard-content mt-2']) ?>
                                 <?= csrf_field() ?>

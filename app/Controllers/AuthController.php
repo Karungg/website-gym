@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Membership;
 use CodeIgniter\Controller;
 use CodeIgniter\Session\Session;
 use Myth\Auth\Config\Auth as AuthConfig;
@@ -144,6 +145,7 @@ class AuthController extends Controller
         }
 
         $users = model(UserModel::class);
+        $memberships = model(Membership::class);
 
         // Validate basics first since some password rules rely on these fields
         $rules = config('Validation')->registrationRules ?? [
@@ -179,6 +181,40 @@ class AuthController extends Controller
         if (!$users->save($user)) {
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
+
+        $fotoKtpName = null;
+        $fotoDiriName = null;
+
+        $fotoKtp = $this->request->getFile('foto_ktp');
+        if ($fotoKtp && $fotoKtp->isValid() && !$fotoKtp->hasMoved()) {
+            $fotoKtpName = $fotoKtp->getRandomName();
+            $fotoKtp->move(WRITEPATH . 'uploads/ktp/', $fotoKtpName);
+        }
+
+        $fotoDiri = $this->request->getFile('foto_diri');
+        if ($fotoDiri && $fotoDiri->isValid() && !$fotoDiri->hasMoved()) {
+            $fotoDiriName = $fotoDiri->getRandomName();
+            $fotoDiri->move(WRITEPATH . 'uploads/profile/', $fotoDiriName);
+        }
+
+        $userId = $users->getInsertID();
+
+        $membershipData = [
+            'id_user'       => $userId,
+            'nama_lengkap'  => $this->request->getPost('nama_lengkap'),
+            'email'         => $this->request->getPost('email'),
+            'no_telp'       => $this->request->getPost('no_telp'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'tgl_lahir'     => $this->request->getPost('tgl_lahir'),
+            'no_ktp'        => $this->request->getPost('no_ktp'),
+            'alamat'        => $this->request->getPost('alamat'),
+            'foto_ktp'      => $fotoKtpName,
+            'foto_diri'     => $fotoDiriName,
+            'id_paket'      => $this->request->getPost('paket'),
+            'status'        => 'pending' // Default status
+        ];
+
+        $memberships->save($membershipData);
 
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');
